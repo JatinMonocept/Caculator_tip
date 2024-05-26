@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="../tip_calculator/style.css"> -->
+    <style>
+        html,body{
+            height: 100%;
+            width: 100%;
+            margin: 0px;
+            padding: 0px;
+            font-size: 20px;
+            color: white;
+        }
+        .page{
+            margin: 100px auto;
+            padding: 30px;
+            /* border: 2px solid red; */
+            background-color: rgb(48, 48, 87);
+            height: 525px;
+            width: 360px;
+            border-radius: 40px;
+        }
+        #top{
+            margin-top: 80px;
+        }
+        #mid{
+            margin-top: 40px;
+        }
+        .inputcontainer{
+            margin-top: 10px;
+            padding: 9px;
+            border-radius: 20px;
+            background-color: black;
+        }
+        input{
+            background-color: black;
+            outline: none;
+            border: none;
+            font-size: 25px;
+        }
+        .splitcontainer{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        #bottom{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        button{
+            border: none;
+            background-color: black;
+            border-radius: 10px;
+            /* padding: 2px; */
+        }
+        .buttonText{
+            font-size: 19px;
+        }
+        .controls{
+        display: flex;
+        gap: 9px;
+        text-align: center;
+        font-size: 25px;
+        }
+        .title{
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- <script src="../tip_calculator/script.js"></script> -->
+    <div class="page">
+        <div class="container" id="top">
+            <div class="title">Bill Total</div>
+            <div class="inputcontainer">
+                <span>$</span>
+                <input onkeyup="calculateBill()" type="text" id="billinputt" placeholder="0">
+            </div>
+        </div>
+        <div class="container" id="mid">
+            <div class="title">Tip</div>
+            <div class="inputcontainer">
+                <span>%</span>
+                <input onkeyup="calculateBill()" type="text" id="tipinputt"  placeholder="0">
+            </div>
+        </div>
+        <div class="container" id="bottom">
+            <div class="splitcontainer">
+                <div class="title">People</div>
+                <div class="controls">
+                    <span class="buttoncontainer">
+                        <button  onclick="increasepeople()">
+                           <span class="buttonText">+</span>
+                        </button>
+                    </span>
+                    <span class="splitamount" id="people_quant">1</span>
+                    <span class="buttoncontainer">
+                        <button onclick="decreasepeople()">
+                            <span class="buttonText">-</span>
+                         </button>
+                    </span>
+                </div>
+            </div>
+            <div class="splitcontainer">
+               <div class="title">Total per Person</div>
+               <div class="total" id="perpersontotal">$0.00</div>
+            </div>
+    
+        </div>
+    </div>
+        <script>
+            // console.log("HELsdLO WORLD ")
+            const tipamount=document.getElementById("tipinputt")
+            const billamount=document.getElementById("billinputt")
+            // console.log(tipamount)
+            const perpersontotal= document.getElementById('perpersontotal')
+            const noofpeople=document.getElementById("people_quant")
+            // console.log(noofpeople)
+            let people=1;
+            function calculateBill(){
+                // console.log("keyup")
+                const bill=Number(billamount.value)
+                const tippercen=Number(tipamount.value)/100;
+                const tip=bill*tippercen
+                // console.log("clicked")
+                const total=tip+bill
+
+                const perperson=total/people
+
+                perpersontotal.innerText=`$${perperson.toFixed(2)}`
+            }
+            const increasepeople =()=>{
+                people+=1;
+                noofpeople.innerText=people;
+                calculateBill()
+            }
+            const decreasepeople=()=>{
+                people-=1;
+                if(people<1){
+                    alert("No of people never be zero ")
+                    return ;
+                }
+                noofpeople.innerText=people;
+                calculateBill()
+            }
+            // console.log('ewe');
+        </script>
+    
+</body>
+</html>
